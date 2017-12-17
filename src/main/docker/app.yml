@@ -1,0 +1,19 @@
+version: '2'
+services:
+    concours-app:
+        image: concours
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://concours-mysql:3306/concours?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=concours-elasticsearch:9300
+        ports:
+            - 8080:8080
+    concours-mysql:
+        extends:
+            file: mysql.yml
+            service: concours-mysql
+    concours-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: concours-elasticsearch
